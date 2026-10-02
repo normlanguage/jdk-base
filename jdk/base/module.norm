@@ -1,0 +1,17 @@
+Module module() {
+  module(name: "jdk.base", version: 1,
+    exports: ["LocalDate", "LocalTime", "YearMonth", "Month", "DayOfWeek", "BigDecimal", "RoundingMode", "MathContext", "Locale"],
+    binding: jarBinding(
+      target: jdkModule(name: "java.base", resolution: sha256("89922059f0b215a852b16125e17f11295bfcc47481ac177b3d8b5d67564beec3")),
+      api: [
+        jarType(name: "java.time.LocalDate", members: ["now", "of", "parse", "getYear", "getMonthValue", "getDayOfMonth", "getDayOfWeek", "plusDays", "minusDays", "plusMonths", "minusMonths", "lengthOfMonth", "isLeapYear", "toEpochDay", "ofEpochDay", "toString"]),
+        jarType(name: "java.time.LocalTime", members: ["now", "of", "parse", "getHour", "getMinute", "getSecond", "getNano", "plusHours", "plusMinutes", "plusSeconds", "toSecondOfDay", "ofSecondOfDay", "toString"]),
+        jarType(name: "java.time.YearMonth", members: ["now", "of", "parse", "getYear", "getMonthValue", "lengthOfMonth", "atDay", "plusMonths", "minusMonths", "toString"]),
+        jarType(name: "java.time.Month", members: ["of", "getValue"]),
+        jarType(name: "java.time.DayOfWeek", members: ["of", "getValue"]),
+        jarType(name: "java.math.BigDecimal", members: ["add", "subtract", "multiply", "divide", "setScale", "scale", "signum", "compareTo", "toPlainString", "toString", "negate", "abs"], overloads: [jarOverload(name: "new", parameterTypes: ["java.lang.String"])]),
+        jarType(name: "java.math.RoundingMode", members: []),
+        jarType(name: "java.math.MathContext", members: ["getPrecision", "getRoundingMode"], overloads: [jarOverload(name: "new", parameterTypes: ["int", "java.math.RoundingMode"])]),
+        jarType(name: "java.util.Locale", members: ["forLanguageTag", "toLanguageTag", "getLanguage", "getCountry", "getDefault"])
+      ]))
+}

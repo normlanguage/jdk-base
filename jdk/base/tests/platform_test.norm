@@ -1,0 +1,21 @@
+package jdk.base
+
+import std.testing.Test
+
+@Test
+Void calendarArithmeticAndExactDecimals() {
+  var leap = localDateOf(arg0: 2024, arg1: 2, arg2: 29)
+  require(condition: leap!!.plusDays(1)!!.toString() == "2024-03-01", message: "leap-day arithmetic")
+  var time = localTimeOf(arg0: 23, arg1: 45)
+  require(condition: time!!.plusMinutes(30)!!.getHour() == 0, message: "midnight arithmetic")
+  var sum = bigDecimalNew("0.1").add(bigDecimalNew("0.2"))
+  require(condition: sum!!.toPlainString() == "0.3", message: "exact decimal addition")
+  require(condition: yearMonthOf(arg0: 2024, arg1: 2)!!.lengthOfMonth() == 29,
+    message: "year-month follows leap-year calendar")
+  require(condition: monthOf(2)!! == Month.FEBRUARY && dayOfWeekOf(1)!! == DayOfWeek.MONDAY,
+    message: "calendar enums use JDK values")
+  var precision = mathContextNew(arg0: 4, arg1: RoundingMode.HALF_UP)
+  require(condition: precision.getPrecision() == 4 && precision.getRoundingMode() == RoundingMode.HALF_UP,
+    message: "decimal context preserves precision and rounding")
+  require(condition: localeForLanguageTag("zh-CN")!!.toLanguageTag() == "zh-CN", message: "locale identity")
+}
