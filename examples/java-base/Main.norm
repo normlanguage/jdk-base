@@ -1,0 +1,31 @@
+import java.base.time.localDateOf
+import java.base.time.localTimeOf
+import java.base.time.yearMonthOf
+import java.base.time.monthOf
+import java.base.time.dayOfWeekOf
+import java.base.time.Month
+import java.base.time.DayOfWeek
+import java.base.math.bigDecimalNew
+import java.base.math.mathContextNew
+import java.base.math.RoundingMode
+import java.base.util.Locale
+
+Module module() {
+  module(name: "example.java.base", version: 1, dependencies: [dependency(repository: "norm", name: "java.base", version: 1)])
+}
+
+Void main() {
+  var date = localDateOf(arg0: 2024, arg1: 2, arg2: 29)!!
+  require(condition: date.plusDays(arg0: 1)!!.toString() == "2024-03-01", message: "leap day")
+  var time = localTimeOf(arg0: 23, arg1: 45)!!
+  require(condition: time.plusMinutes(arg0: 30)!!.getHour() == 0, message: "midnight")
+  require(condition: yearMonthOf(arg0: 2024, arg1: 2)!!.lengthOfMonth() == 29, message: "calendar month")
+  require(condition: monthOf(arg0: 2)!! == Month.FEBRUARY, message: "month enum")
+  require(condition: dayOfWeekOf(arg0: 1)!! == DayOfWeek.MONDAY, message: "weekday enum")
+  var sum = bigDecimalNew(arg0: "0.1").add(arg0: bigDecimalNew(arg0: "0.2"))!!
+  require(condition: sum.toPlainString() == "0.3", message: "decimal arithmetic")
+  var precision = mathContextNew(arg0: 4, arg1: RoundingMode.HALF_UP)
+  require(condition: precision.getPrecision() == 4, message: "decimal precision")
+  require(condition: Locale.class.name() == "Locale", message: "locale type ownership")
+  printLine("java.base migration passed")
+}
